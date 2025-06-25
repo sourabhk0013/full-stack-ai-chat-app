@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./server
+    container_name: ai-chat-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/ai_chat_db
+      - SECRET_KEY=your-secret-key-should-be-long-and-random
+      - SENTRY_DSN=
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./client
+    container_name: ai-chat-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api
+
+  db:
+    image: postgres:15-alpine
+    container_name: ai-chat-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ai_chat_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
