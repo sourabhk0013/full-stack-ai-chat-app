@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+databases[asyncpg]
+psycopg2-binary
+python-jose[cryptography]
+passlib[bcrypt]
+pydantic[email]
+httpx
+python-multipart
+websockets
+aioredis
+slowapi
+sentry-sdk
+pytest
+pytest-asyncio
